@@ -377,6 +377,112 @@ int main(void)
 
     /* ================================================= */
     printf("=====================================\n");
+    printf("Testes extremos e casos bizarros\n");
+    printf("=====================================\n\n");
+
+    /* Operadores repetidos */
+
+    testar_valor_invalido("1 2 + + +");
+    testar_infixa_invalida("1 2 + + +");
+
+    testar_valor_invalido("1 2 * *");
+    testar_infixa_invalida("1 2 * *");
+
+    /* Pilha sobrando */
+
+    testar_valor_invalido("1 2");
+    testar_infixa_invalida("1 2");
+
+    testar_valor_invalido("1 2 3");
+    testar_infixa_invalida("1 2 3");
+
+    testar_valor_invalido("1 2 3 4");
+    testar_infixa_invalida("1 2 3 4");
+
+    /* Strings vazias */
+
+    testar_valor_invalido("");
+    testar_infixa_invalida("");
+
+    testar_valor_invalido(" ");
+    testar_infixa_invalida(" ");
+
+    testar_valor_invalido("     ");
+    testar_infixa_invalida("     ");
+
+    /* Funções encadeadas absurdas */
+
+    testar_valor("100 log log", 0.30103f, 0.001f);
+    testar_infixa("100 log log", "log(log(100))");
+
+    testar_valor("81 raiz raiz", 3.0f, 0.001f);
+    testar_infixa("81 raiz raiz", "raiz(raiz(81))");
+
+    testar_valor("90 sen sen", 0.01745f, 0.001f);
+    testar_infixa("90 sen sen", "sen(sen(90))");
+
+    /* Precedência pesada */
+
+    testar_valor("2 3 + 4 5 + *", 45.0f, 0.001f);
+    testar_infixa("2 3 + 4 5 + *", "(2+3)*(4+5)");
+
+    testar_valor("2 3 4 + * 5 +", 19.0f, 0.001f);
+    testar_infixa("2 3 4 + * 5 +", "2*(3+4)+5");
+
+    testar_valor("2 3 + 4 * 5 +", 25.0f, 0.001f);
+    testar_infixa("2 3 + 4 * 5 +", "(2+3)*4+5");
+
+    /* Potências grandes */
+
+    testar_valor("2 10 ^", 1024.0f, 0.001f);
+    testar_infixa("2 10 ^", "2^10");
+
+    testar_valor("10 0 ^", 1.0f, 0.001f);
+    testar_infixa("10 0 ^", "10^0");
+
+    /* Decimais */
+
+    testar_valor("0.1 0.2 +", 0.3f, 0.001f);
+    testar_infixa("0.1 0.2 +", "0.1+0.2");
+
+    testar_valor("2.5 4 *", 10.0f, 0.001f);
+    testar_infixa("2.5 4 *", "2.5*4");
+
+    /* Negativos mais complexos */
+
+    testar_valor("-5 -3 +", -8.0f, 0.001f);
+    testar_infixa("-5 -3 +", "-5+-3");
+
+    testar_valor("-5 -3 /", 1.6667f, 0.001f);
+    testar_infixa("-5 -3 /", "-5/-3");
+
+    /* Inválidos esquisitos */
+
+    testar_valor_invalido("raiz raiz");
+    testar_infixa_invalida("raiz raiz");
+
+    testar_valor_invalido("log log");
+    testar_infixa_invalida("log log");
+
+    testar_valor_invalido("^");
+    testar_infixa_invalida("^");
+
+    testar_valor_invalido("%");
+    testar_infixa_invalida("%");
+
+    /* Caracteres estranhos */
+
+    testar_valor_invalido("1 2 #");
+    testar_infixa_invalida("1 2 #");
+
+    testar_valor_invalido("1 2 ?");
+    testar_infixa_invalida("1 2 ?");
+
+    testar_valor_invalido("1 2 abc");
+    testar_infixa_invalida("1 2 abc");
+
+    /* ================================================= */
+    printf("=====================================\n");
     printf("TOTAL DE TESTES : %d\n", total);
     printf("ACERTOS         : %d\n", acertos);
     printf("PERCENTUAL      : %.2f%%\n", (float)acertos / total * 100.0f);
