@@ -303,15 +303,15 @@ char *getInFixa(char *Str)
                 strcpy(txtEsq, esq);
 
             if (prioDir > 0 && prioDir < prioOp)
-    sprintf(txtDir, "(%s)", dir);
-else if (prioDir > 0 && prioDir == prioOp &&
-         (strcmp(tok, "-") == 0 ||
-          strcmp(tok, "/") == 0 ||
-          strcmp(tok, "%") == 0 ||
-          strcmp(tok, "^") == 0))
-    sprintf(txtDir, "(%s)", dir);
-else
-    strcpy(txtDir, dir);
+                sprintf(txtDir, "(%s)", dir);
+            else if (prioDir > 0 && prioDir == prioOp &&
+                     (strcmp(tok, "-") == 0 ||
+                      strcmp(tok, "/") == 0 ||
+                      strcmp(tok, "%") == 0 ||
+                      strcmp(tok, "^") == 0))
+                sprintf(txtDir, "(%s)", dir);
+            else
+                strcpy(txtDir, dir);
 
             sprintf(tmp, "%s%s%s", txtEsq, tok, txtDir);
             free(esq);
